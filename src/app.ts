@@ -1,13 +1,16 @@
-import express, { Request, Response, NextFunction } from "express";
-import createHttpError, { HttpError } from "http-errors";
-import { config } from "./config/config";
+import express from "express";
+import userRouter from "./user/userRouter";
 
 const app = express();
 
+//body parser
+app.use(express.json());
+
 //routes
 app.get("/", (req, res, next) => {
-    const error = createHttpError(400, "something went wrong");
-    throw error;
+    res.json({ message: "you are currently on the main route" });
 });
+
+app.use("/api/users", userRouter);
 
 export default app;
